@@ -38,15 +38,15 @@ The original business question can be answered with the bar graph above. The top
 
 To improve computational speed, I first ran a code to inspect how much storage each data type in my dataset was taking. As a result, the object columns, which also happened to be columns that were unused in the analysis, were taking up the most storage of 1MB. These three columns were removed as a part of the data munging step. 
 
-![GitHub Logo](https://github.com/UCLA-Stats-404-W21/OYE-AIRI-TAKASHIMA/blob/feature/HW4/hw4_1.png)
+![GitHub Logo](https://github.com/airitoye/excavation-damage/tree/main/img/hw4_1.png)
 
 I also added the number of jobs that should be ran parallely during the step where the random forest models are generated from the default 1 to 4. As a result of these two steps, the run time of the generation of random forest models changed from the baseline of 45.1 seconds to 25.4 seconds. 
 
-![GitHub Logo](https://github.com/UCLA-Stats-404-W21/OYE-AIRI-TAKASHIMA/blob/feature/HW4/hw4_2.png)
+![GitHub Logo](https://github.com/airitoye/excavation-damage/tree/main/img/hw4_2.png)
 
 ## Architecture Diagram
 
-![GitHub Logo](https://github.com/airitoye/excavation-damage/image/hw5_1.png)
+![GitHub Logo](https://github.com/airitoye/excavation-damage/tree/main/img/hw5_1.png)
 
 This model will be scoring with streaming data, as it is able to take one record of leak data at a time to assess the probability of it being a hazardous leak. Between the training and scoring, much of the architecture is shared, including the data processing and feature engineering. 
 
@@ -70,12 +70,12 @@ Here is an example of what the INPUT and OUTPUT variables will look like:
 
 ## Testing
 
-![GitHub Logo](https://github.com/airitoye/excavation-damage/image/hw5_3.png)
+![GitHub Logo](https://github.com/airitoye/excavation-damage/tree/main/img/hw5_3.png)
 
-![GitHub Logo](https://github.com/airitoye/excavation-damage/image/hw5_4.png)
+![GitHub Logo](https://github.com/airitoye/excavation-damage/tree/main/img/hw5_4.png)
 
 I decided to add two unit tests to validate the functionality of the feature engineering functions of is_hazardous_leak and is_haz_district. The validation for is_hazardous_leak is especially critical, as this is being used to generate the output. I used the is_haz_exc and is_haz_de to create an integration test, where each function is designated to generate a 0 or 1 depending on the value of the person who caused the damage and what equipment was used. 
 
 ## Code Coverage
 
-![GitHub Logo](https://github.com/airitoye/excavation-damage/image/hw5_2.png)
+![GitHub Logo](https://github.com/airitoye/excavation-damage/tree/main/img/hw5_2.png)
