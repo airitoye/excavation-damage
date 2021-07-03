@@ -18,19 +18,19 @@
 
 When I first began conducting EDA on this dataset, it was apparent that majority of the columns were categorical variables, as seen below. 
 
-![GitHub Logo](https://github.com/UCLA-Stats-404-W21/OYE-AIRI-TAKASHIMA/blob/feature/HW3/hw3_1.png)
+![GitHub Logo](https://github.com/airitoye/excavation-damage/blob/main/img/hw3_1.png)
 
 Because many of the predictors I wanted to use were nominal categorical variables, I decided to fit the appropriate predictors into a random forest model. For feature engineering, I first created an outcome variable that indicated if a leak was hazardous or not by using the column that indicates leak severity, "Leak Code for Reporting". I then used the .cat.codes function to convert all (excluding some high dimenional date fields) categorical variables via label encoding (https://www.datacamp.com/community/tutorials/categorical-data). Some excluded columns include Detect Date and Leak Fix Date, which were high dimensional data and would be difficult to interpret in a model without parsing. Although the column District had over 40 levels, I decided to keep them in the dataset since geographical information would be beneificial in applying the results of this model to the business use case. The results of the label encoding are illustrated below: 
 
-![GitHub Logo](https://github.com/UCLA-Stats-404-W21/OYE-AIRI-TAKASHIMA/blob/feature/HW3/hw3_2.png)
+![GitHub Logo](https://github.com/airitoye/excavation-damage/blob/main/img/hw3_2.png)
 
 I then included all applicable variables (excluding the output and those variables excluded from label encoding) to create a random forest model. The results were highly skeptical, as both the micro and macro F1 value resulted in 0.99. This indicates a leakage in the data and a need to re-evaluate the predictors included. 
 
-![GitHub Logo](https://github.com/UCLA-Stats-404-W21/OYE-AIRI-TAKASHIMA/blob/feature/HW3/hw3_3.png)
+![GitHub Logo](https://github.com/airitoye/excavation-damage/blob/main/img/hw3_3.png)
 
 To improve the model, I excluded the predictors identified to be some of the top important features in the first model. Although the improved model yielded a much lower macro F1 value of 0.55, the micro F1 score did not decrease by much, yielding a value of 0.89. As also seen in the top 20 important features, there is also a better balance among the predictors in significance to the predicted outcome. 
 
-![GitHub Logo](https://github.com/UCLA-Stats-404-W21/OYE-AIRI-TAKASHIMA/blob/feature/HW3/hw3_4.png)
+![GitHub Logo](https://github.com/airitoye/excavation-damage/blob/main/img/hw3_4.png)
 
 The original business question can be answered with the bar graph above. The top three predictors that contributed to the model output most were "Type of Excavator", "EIR_NA" and "District". These are significant findings, as the model indicates that knowing the type of excavator that damaged the pipe, if an EIR, or emergency incident report, was submitted to the company upon leak detection and the district of where the leak occurred contribute most in predicting if the leak will be hazardous or not. The business can potentially utilize this to target geographical areas and constituencies who should be contacted to raise awareness of gas pipelines in the ground and promote initiatives to encourage contacting the utility company before digging, one of the primary causes of an excavation damage. 
 
@@ -38,15 +38,15 @@ The original business question can be answered with the bar graph above. The top
 
 To improve computational speed, I first ran a code to inspect how much storage each data type in my dataset was taking. As a result, the object columns, which also happened to be columns that were unused in the analysis, were taking up the most storage of 1MB. These three columns were removed as a part of the data munging step. 
 
-![GitHub Logo](https://github.com/airitoye/excavation-damage/tree/main/img/hw4_1.png)
+![GitHub Logo](https://github.com/airitoye/excavation-damage/blob/main/img/hw4_1.png)
 
 I also added the number of jobs that should be ran parallely during the step where the random forest models are generated from the default 1 to 4. As a result of these two steps, the run time of the generation of random forest models changed from the baseline of 45.1 seconds to 25.4 seconds. 
 
-![GitHub Logo](https://github.com/airitoye/excavation-damage/tree/main/img/hw4_2.png)
+![GitHub Logo](https://github.com/airitoye/excavation-damage/blob/main/img/hw4_2.png)
 
 ## Architecture Diagram
 
-![GitHub Logo](https://github.com/airitoye/excavation-damage/tree/main/img/hw5_1.png)
+![GitHub Logo](https://github.com/airitoye/excavation-damage/blob/main/img/hw5_1.png)
 
 This model will be scoring with streaming data, as it is able to take one record of leak data at a time to assess the probability of it being a hazardous leak. Between the training and scoring, much of the architecture is shared, including the data processing and feature engineering. 
 
@@ -70,12 +70,12 @@ Here is an example of what the INPUT and OUTPUT variables will look like:
 
 ## Testing
 
-![GitHub Logo](https://github.com/airitoye/excavation-damage/tree/main/img/hw5_3.png)
+![GitHub Logo](https://github.com/airitoye/excavation-damage/blob/main/img/hw5_3.png)
 
-![GitHub Logo](https://github.com/airitoye/excavation-damage/tree/main/img/hw5_4.png)
+![GitHub Logo](https://github.com/airitoye/excavation-damage/blob/main/img/hw5_4.png)
 
 I decided to add two unit tests to validate the functionality of the feature engineering functions of is_hazardous_leak and is_haz_district. The validation for is_hazardous_leak is especially critical, as this is being used to generate the output. I used the is_haz_exc and is_haz_de to create an integration test, where each function is designated to generate a 0 or 1 depending on the value of the person who caused the damage and what equipment was used. 
 
 ## Code Coverage
 
-![GitHub Logo](https://github.com/airitoye/excavation-damage/tree/main/img/hw5_2.png)
+![GitHub Logo](https://github.com/airitoye/excavation-damage/blob/main/img/hw5_2.png)
